@@ -1,58 +1,73 @@
-package ca.bcit.comp1451.Session5LabB;
+/**
+ * 
+ */
+package ca.bcit.comp1451Session05;
 
-import java.util.ArrayList;
+/**
+ * @author a00749008
+ *
+ */
+public class Cat extends Pet {
+	private boolean isInDoor;
 
-public class Transportation {
-
-	private ArrayList<Vehicle> transport;
-
-	public Transportation() {
-		transport = new ArrayList<Vehicle>();
+	/**
+	 * @param name
+	 * @param ageInyears
+	 */
+	public Cat(String name, int ageInyears, boolean indoor) {
+		super(name, ageInyears);
+		isInDoor = indoor;
 	}
 
-	public void loadCollection(Airplane airplane, Boat boat, Car car) {
-		transport.add(airplane);
-		transport.add(boat);
-		transport.add(car);
+	/**
+	 * @return the isInDoor
+	 */
+	public boolean isInDoor() {
+		return isInDoor;
 	}
 
-	public void displayAllDetails() {
-		System.out.println(" ");
-		System.out.println("List of transportation methods: ");
-		for (Vehicle mode : transport) {
-			if (mode instanceof Airplane) {
-				System.out.println(" ");
-				((Airplane) mode).displayDetails();
-			}
-			if (mode instanceof Boat) {
-				System.out.println(" ");
-				((Boat) mode).displayDetails();
-			}
-			if (mode instanceof Car) {
-				System.out.println(" ");
-				((Car) mode).displayDetails();
-			}
-		}
+	/**
+	 * @param isInDoor the isInDoor to set
+	 */
+	public void setInDoor(boolean isInDoor) {
+		this.isInDoor = isInDoor;
 	}
 
-	public void displayAirplaneDetails() {
-		System.out.println(" ");
-		System.out.println("List of all airplanes: ");
-		for (Vehicle plane : transport) {
-			if (plane instanceof Airplane) {
-				System.out.println(" ");
-				((Airplane) plane).displayDetails();
-			}
-		}
+	 public void makeSound() {
+		 System.out.println("Meow");
+	 }
+
+	@Override
+	public String toString() {
+		return super.toString() + " is in door cat " + isInDoor;
 	}
 
-	public static void main(String[] args) {
-		Airplane air1 = new Airplane(2000, "Jet", "Stream", 20000);
-		Boat boat1 = new Boat(1985, "Boat", "McBoatface", true);
-		Car car1 = new Car(2015, "BMW", "M3", 400);
-		Transportation transport1 = new Transportation();
-		transport1.loadCollection(air1, boat1, car1);
-		transport1.displayAirplaneDetails();
-		transport1.displayAllDetails();
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + (isInDoor ? 1231 : 1237);
+		return result;
 	}
-}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof Cat))
+			return false;
+		Cat other = (Cat) obj;
+		if (isInDoor != other.isInDoor)
+			return false;
+		return true;
+	}
+
+	
+	 
+	 
+	
+	}
+	
+
