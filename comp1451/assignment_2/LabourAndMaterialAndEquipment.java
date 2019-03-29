@@ -50,7 +50,7 @@ public class LabourAndMaterialAndEquipment extends LabourAndMaterial {
     if(trainingFees() > 0){
       tFee = "Training fees: $" + Checks.formatMoney(trainingFees()) + "\n";
     }
-    return super.toString() + "Equipment number of rented hours: " + getNumOfRentedHours() + "\n" + "Equipment rental fees: $" + Checks.formatMoney(calcTotalRentalFees()) + "\n" + tFee + tCost; 
+    return super.toString() + "Equipment number of rented hours: " + getNumOfRentedHours() + "\n" + "Equipment rental fees: $" + Checks.formatMoney(calcTotalRentalFees()) + "\n" + tFee + tCost ; 
   }  
 
 }
