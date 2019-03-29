@@ -4,21 +4,21 @@ public class Labour extends ProjectInvoice{
   private static double HOLIDAY_BONUS = 2.0;
   public static double SALES_TAX = 1.05;
 
-  private double transportDistKM;
+  private double distanceOfTransportationInKilometers; 
   private String hourlyRateCriteria;
   private String typeOfLabour;
 
-  public Labour(String projectName, double hoursWorked, double hourlyRate, double transportDistKM, String hourlyRateCriteria, String typeOfLabour){
+  public Labour(String projectName, double hoursWorked, double hourlyRate, double distanceOfTransportationInKilometers, String hourlyRateCriteria, String typeOfLabour){
     super(projectName, hoursWorked, hourlyRate);
-    setTransportDistKM(transportDistKM);
+    setDistanceOfTransportationInKilometers(distanceOfTransportationInKilometers);
     setHourlyRateCriteria(hourlyRateCriteria);
     setTypeOfLabour(typeOfLabour);
   }
-  public void setTransportDistKM(double transportDistKM){
-    this.transportDistKM = Checks.doubleValue(transportDistKM);
+  public void setDistanceOfTransportationInKilometers(double distanceOfTransportationInKilometers){
+    this.distanceOfTransportationInKilometers = Checks.doubleValue(distanceOfTransportationInKilometers);
   }
-  public double getTransportDistKM(){
-    return transportDistKM;
+  public double getDistanceOfTransportationInKilometers(){
+    return distanceOfTransportationInKilometers;
   }
   public void setHourlyRateCriteria(String hourlyRateCriteria){
     String criteria = hourlyRateCriteria.toLowerCase();
@@ -43,10 +43,10 @@ public class Labour extends ProjectInvoice{
     return typeOfLabour;
   }
 
-  public double calcTransportCost(){
-    //double labourTransportCost = (TRANSPORT_COST_MULTIPLE * transportDistKM);
-    double labourTransportCost = 100;
-    return labourTransportCost;
+  public double calcTransportationCost(){
+    double transportCost = (TRANSPORT_COST_MULTIPLE * distanceOfTransportationInKilometers);
+    //double labourTransportCost = 100;
+    return transportCost;
   }
 
   @Override
@@ -59,7 +59,7 @@ public class Labour extends ProjectInvoice{
     } else if (hourlyRateCriteria.equals("holiday")) {
       totalCost = getHourlyRate() * getHoursWorked() * HOLIDAY_BONUS;
     }
-    totalCost = (totalCost + calcTransportCost())* SALES_TAX;
+    totalCost = (totalCost + calcTransportationCost())* SALES_TAX;
     return totalCost;
   }
   
@@ -69,7 +69,7 @@ public class Labour extends ProjectInvoice{
     if(this.getClass() == Labour.class){
       line = "Total cost including 5% tax: $" + Checks.formatMoney(calcTotalCost());
       }
-    return super.toString() + "\n" +  "Hourly rate criteria: " + getHourlyRateCriteria() + "\n" + "Type of labour: " + getTypeOfLabour() + "\n" + "Cost of labour transportation: $" + calcTransportCost() + "\n" + line;
+    return super.toString() + "\n" +  "Hourly rate criteria: " + getHourlyRateCriteria() + "\n" + "Type of labour: " + getTypeOfLabour() + "\n" + "Cost of labour transportation: $" + calcTransportationCost() + "\n" + line ;
   }
 
 }
