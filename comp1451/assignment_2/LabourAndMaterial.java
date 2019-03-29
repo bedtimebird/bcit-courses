@@ -31,13 +31,13 @@ public class LabourAndMaterial extends Labour implements Transferable{
   public double getMatTransportDisKM(){
     return matTransportDisKM;
   }
-  public double matTotalCost(){
-    double matTotalCost = getMatPurchPrice() * MARK_UP;
-    return matTotalCost;
+  public double matertialTotalCost(){
+    double matertialTotalCost = getMatPurchPrice() * MARK_UP;
+    return matertialTotalCost;
   }
 
   @Override
-  public double calcTransportCost(){
+  public double calcTransportationCost(){
     double materialTransportCost = 0;
     if (getMatVolCubicFT() >= 10) {
       materialTransportCost = getMatTransportDisKM() * LARGE_VOL_FEE;
@@ -49,7 +49,7 @@ public class LabourAndMaterial extends Labour implements Transferable{
 
   @Override
   public double calcTotalCost(){
-    double totalCost = super.calcTotalCost() + (calcTransportCost() + matTotalCost()) * SALES_TAX;
+    double totalCost = super.calcTotalCost() + (calcTransportationCost() + matertialTotalCost()) * SALES_TAX;
     return totalCost;
   }  
   
@@ -59,7 +59,7 @@ public class LabourAndMaterial extends Labour implements Transferable{
     if(this.getClass() == LabourAndMaterial.class){
       line = "Total cost including 5% tax: $" + Checks.formatMoney(calcTotalCost());
       }
-    return super.toString() +  "Material cost is: $" + Checks.formatMoney(getMatPurchPrice()) + "\n" +  "The material transportation fee is: $" + Checks.formatMoney(calcTransportCost()) + "\n" + line; 
+    return super.toString() +  "Material cost is: $" + Checks.formatMoney(getMatPurchPrice()) + "\n" +  "The material transportation fee is: $" + Checks.formatMoney(calcTransportationCost()) + "\n" + line ; 
   }  
  
 }
