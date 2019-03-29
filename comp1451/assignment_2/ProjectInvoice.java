@@ -55,6 +55,8 @@ public abstract class ProjectInvoice implements Comparable <ProjectInvoice>{
     String line = "Invoice number: " + getInvoiceNumber() + "\n" + "Project name: " + getProjectName() + "\n" + "Hourly rate: $" + Checks.formatMoney(getHourlyRate()) + "\n" + "Number of working hours: " + getHoursWorked();
     return line;
   }
+/*
+--do not think below methods are required, delete?--
 
   public void displayInvoiceInformation(){
     System.out.println("Display invoice information: ");
@@ -64,5 +66,6 @@ public abstract class ProjectInvoice implements Comparable <ProjectInvoice>{
     System.out.println("Invoice number: " + getInvoiceNumber());
   }
 
+*/
 
 }
