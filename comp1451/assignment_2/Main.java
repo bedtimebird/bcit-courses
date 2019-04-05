@@ -7,16 +7,12 @@ class Main {
     ing.addInvoice(new LabourAndMaterial("Burj Khalifa", 2000.0, 25.0, 50.00, "holiday", "inexperienced", 1000.0, 500.0, 50.0));
     ing.addInvoice(new LabourAndMaterialAndEquipment("Brenner Base Tunnel", 1500.0, 100.0, 50.00, "regular", "experienced", 200.0, 50000.0, 50.0, 500000, 200));
     ing.addInvoice(new LabourAndMaterialAndEquipment("Millau Viaduct", 1200.0, 300.0, 10.00, "regular", "experienced", 2000.0, 4000.0, 15.0, 5000, 120));
+
     ing.displayAllInvoices();
+
     ing.calcTotalInsuranceFees();
+
+    ing.reviewProjects();
     
-/**
-    try {
-      ing.displayInvoice("INVC00001");
-    } catch(InvalidInvoiceNumberException e){
-      System.out.println(e.getMessage());
-    }
-    ing.displayAllInvoices();
-**/
   } 
 }
