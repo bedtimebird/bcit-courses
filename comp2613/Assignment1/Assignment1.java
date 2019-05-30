@@ -67,8 +67,14 @@ public class Assignment1 {
 			System.out.format("Required '%s' is missing.", CUSTOMER_DATA_FILENAME);
 			System.exit(-1);
 		}
+		File bookFile = new File(BOOK_DATA_FILENAME);
+		if (!bookFile.exists()) {
+			System.out.format("Required '%s' is missing.", BOOK_DATA_FILENAME);
+			System.exit(-1);
+		}
 
-		new Assignment1(customerFile).run();
+		new Assignment1(customerFile, bookFile).run();
+
 		Instant endTime = Instant.now();
 		LOG.info(endTime);
 		LOG.info(String.format("Duration: %d ms", Duration.between(startTime, endTime).toMillis()));
@@ -87,12 +93,13 @@ public class Assignment1 {
 	/*
 	 * Assignment 1 constructor
 	 */
-	public Assignment1(File customerDataFile) {
+	public Assignment1(File customerDataFile, File bookDataFile) {
 		LOG.debug("Assignment1()");
 		//
 		// Does this name have to be changed (customerDataFile???) will it work with all three different objects?
 		//
 		this.customerDataFile = customerDataFile;
+		this.bookDataFile = bookDataFile;
 	}
 
 	/*
@@ -102,7 +109,13 @@ public class Assignment1 {
 		LOG.debug("run();");
 		try {
 			loadCustomers();
-			printCustomers();
+			// printCustomers();
+		} catch (ApplicationException e) {
+			LOG.error(e.getMessage());
+		}
+		try {
+			loadBooks();
+			printBooks();
 		} catch (ApplicationException e) {
 			LOG.error(e.getMessage());
 		}
@@ -113,6 +126,14 @@ public class Assignment1 {
 		customers = ExternalRecordReader.readCustomerFile(customerDataFile);
 	}
 
+	private void loadBooks() throws ApplicationException {
+		LOG.debug(String.format("Reading the Customers Report from '%s'", bookDataFile.getAbsolutePath()));
+		//error located here...
+		//books is of type <Book> - readBookFile returns type <String>
+		// fixing problem for poorly designed program...bam bam bam...
+		books = ExternalRecordReader.readBookFile(bookDataFile);
+	}
+
 	private void printCustomers() {
 		File customersFile = new File("customers_report.txt");
 		LOG.debug(String.format("Writing the Customers Report to '%s'", customersFile.getAbsolutePath()));
@@ -120,6 +141,18 @@ public class Assignment1 {
 		try {
 			out = new PrintStream(new FileOutputStream(customersFile));
 			ReportOutput.writeCustomer(customers, out);
+		} catch (FileNotFoundException e) {
+			LOG.error(e.getMessage());
+		}
+	}
+
+	private void printBooks() {
+		File booksFile = new File("book_report.txt");
+		LOG.debug(String.format("Writing the Book Report to '%s'", booksFile.getAbsolutePath()));
+		PrintStream out = null;
+		try {
+			out = new PrintStream(new FileOutputStream(booksFile));
+			ReportOutput.writeBook(books, out);
 		} catch (FileNotFoundException e) {
 			LOG.error(e.getMessage());
 		}
